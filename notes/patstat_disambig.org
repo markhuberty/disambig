@@ -1,0 +1,41 @@
+#+TITLE: Notes on repurposing the Fleming et al disambig library for PATSTAT
+
+* Load
+- Appears easiest for data to go in as a single table, where you can
+  index it in the berkeleydb first. Could write more sophisticated
+  queries, but might have to index on the backend. Doesn't appear necessary.
+- =data.desc= file specifies the format of each row and the type
+  declarations
+- Implies some denormalization of the db, which would require choosing
+  the priority fields for disambiguation
+- 
+
+* Block
+- See Fleming et al's USPTO table on blocking suggestions. They use
+  rare names. Could clean the names, count the freqs, and take the
+  rare names
+- The default =blocking_callback= only operates on the =Block1= field,
+  so far as I can tell, as defined in =data.desc=
+- 
+
+* Index
+- If we do the join, then need to reindex? Might be easier to export
+  from the MySQL db the combined table we want, then just load it into
+  SQLlite as a single widget.
+
+* Compare
+- Note the compare functions for the class and author data assume
+  strings separated by =/= values. 
+- Have to update the 
+- Possible comparison fields for PATSTAT:
+  - Name
+  - IPC codes (top N?) -- already knows how to handle this
+  - Coauthor -- does with jw stringcmp
+  - Person country code (note that 13m of 39m records here are blank)
+  - Person address (note that 26m of 39m records here are blank)
+  
+  Don't have lat/lon, separate first/middle/last names to block on here.
+
+* Tag
+- in =apply_tag= need to specify how the tag should be constructed,
+  otherwise appears to just assign the inventor number again. 
