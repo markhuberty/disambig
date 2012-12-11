@@ -37,13 +37,26 @@ database.
    The final option would be to use theData Science Toolkit's [[http://www.datasciencetoolkit.org/developerdocs#googlestylegeocoder][geocoder]] 
    service, which I could run locally on my own server. Then we can
    just query away with no limits. 
-** TODO Determine the right N for the IPC code field
+
+   UPDATE [2012-10-31 Wed]: The Data Science Toolkit is the best way
+   to go here. We need to use v0.40, which presently doesn't have a
+   stable virtual machine instance. I'm in touch with the developers
+   on that. 
+
+** DONE Determine the right N for the IPC code field
    Amma will check the summary statistics (min/mean/median/max) on how many
    IPC codes the average patent has
-** TODO Determine the right N for the co-authors field
+
+   UPDATE [2012-10-31 Wed]: Most (> 90%) of the author-patent
+   instances have fewer than 6 or so IPC codes. So if we grab 10,
+   we're fine.
+** DONE Determine the right N for the co-authors field
    Amma will check the summary statistics (min/mean/median/max) on how
    many co-authors or co-assignees the average patent has
-
+   
+   UPDATE [2012-10-31 Wed]: Most (> 90%) of the author-patent
+   instances have fewer than 6 or so co-authors. So if we grab 10,
+   we're fine.
 ** TODO Generate text files for use in the disambiguation process
    We need to build files with one row per author-patent instance for
    use in the disambiguation process. This will require querying the
@@ -59,6 +72,11 @@ database.
 
    Before doing this, we will run tests on only countries beginning
    with the letter "A". 
+
+   UPDATE [2012-10-31 Wed]: Amma generated a sample
+   Afghanistan. Formatting is mostly right, but the delimiter
+   character in multi-member fields like IPC and co-author needs to be
+   different (Should be ~/~).
 
 * Configure
 ** Adapt the primary config files 
